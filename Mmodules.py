@@ -19,7 +19,6 @@ from scipy.fft import dst, idst
 from scipy.special import gamma
 from scipy.special import spherical_jn
 from scipy.special import eval_legendre
-from classy import Class
 import time as tm
 
 
