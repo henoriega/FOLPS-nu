@@ -10,8 +10,6 @@
 
 
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
 import scipy
 from scipy import integrate
 from scipy.interpolate import CubicSpline
