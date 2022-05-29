@@ -4,7 +4,10 @@
 **Emails**:henoriega@estudiantes.fisica.unam.mx, avilescervantes@gmail.com 
 
 
-**Requirement:** update your numpy to versions ≥ 1.20.0.
+**Requirements:** 
+
+- Numpy (update your numpy to versions ≥ 1.20.0)
+
 
 FFTLog, neutrinos (paper A.A), ....
 matrices/vectors are computed only one time
