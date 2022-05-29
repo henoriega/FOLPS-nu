@@ -6,7 +6,8 @@
 
 **Requirements:** 
 
-- Numpy (update your numpy to versions ≥ 1.20.0)
+- numpy (update your numpy to versions ≥ 1.20.0)
+- scipy
 
 
 FFTLog, neutrinos (paper A.A), ....
