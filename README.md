@@ -5,6 +5,9 @@
 Email:henoriega@estudiantes.fisica.unam.mx. 
 
 **Other people who contributed to this code**:
+- Mariana Vargas Magaña
+- Sebastien Fromenteau
+- Alejandro Aviles
 
 
 **Requirements:** 
