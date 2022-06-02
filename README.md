@@ -2,7 +2,7 @@
 
 **Authors**: Hernán E. Noriega, Alejandro Aviles
 
-Email:henoriega@estudiantes.fisica.unam.mx. 
+Emails:henoriega@estudiantes.fisica.unam.mx, avilescervantes@gmail.com 
 
 **Other people who contributed to this code**:
 - Mariana Vargas Magaña
