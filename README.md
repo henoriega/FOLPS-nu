@@ -1,5 +1,5 @@
 # FOLPSν
-Fast One Loop Power Spectrum in the presence of massive neutrinos (FOLPSν) computes the redshift space power spectrum multipoles in a fraction of second. The code combines analytical modeling and numerical methods based on the FFTLog formalism to speed up the loop calculations.
+FOLPSν computes the redshift space power spectrum multipoles in a fraction of second. The code combine analytical modeling and numerical methods based on the FFTLog formalism to speed up the loop calculations.
 
 utilizes numerical method and analytical modeling
 
