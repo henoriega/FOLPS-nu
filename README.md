@@ -15,7 +15,9 @@ FOLPSν computes the redshift space power spectrum multipoles in a fraction of s
 
 
 ## Run
-- numpy (update your numpy to versions ≥ 1.20.0)
+
+**dependences**
+- numpy 
 - scipy
 
 [jupyter notebook](https://LINK_DEL_GITHUB)
