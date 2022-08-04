@@ -28,8 +28,7 @@ The code is based on the FFTLog formalism (https://arxiv.org/abs/1603.04826, htt
 Attribution
 -----------
 
-Please cite `Foreman-Mackey, Hogg, Lang & Goodman (2012)
-<https://arxiv.org/abs/1202.3665>`_ if you find this code useful in your
+Please cite <https://arxiv.org/abs/1202.3665>`_ if you find this code useful in your
 research. The BibTeX entry for the paper is::
 
     @article{emcee,
