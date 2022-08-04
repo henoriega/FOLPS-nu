@@ -25,7 +25,7 @@ We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to 
 Git clone
 
 ```
-git clone https://github.com/alejangroaviles/gsm.git
+git clone [https://github.com/alejangroaviles/gsm.git](https://github.com/henoriega/FOLPS-nu.git)
 ```
 
 or download it from http://www.github.com/alejandroaviles/gsm
