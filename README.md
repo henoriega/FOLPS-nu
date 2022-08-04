@@ -5,7 +5,7 @@
 
 
 ## Authors: 
-[Hernán E. Noriega](mailto:henoriega@estudiantes.fisica.unam.mx)
+- [Hernán E. Noriega](mailto:henoriega@estudiantes.fisica.unam.mx)
 
 **Other people who contributed to this code**:
 - Alejandro Aviles
