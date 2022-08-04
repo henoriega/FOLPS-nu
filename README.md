@@ -28,16 +28,8 @@ The code is based on the FFTLog formalism (https://arxiv.org/abs/1603.04826, htt
 Attribution
 -----------
 
-Please cite <https://arxiv.org/abs/1202.3665>`_ if you find this code useful in your
-research. The BibTeX entry for the paper is::
+Please cite <https://ARXIV_PONER>`_ if you find this code useful in your research. 
+The BibTeX entry for the paper is::
 
-    @article{emcee,
-       author = {{Foreman-Mackey}, D. and {Hogg}, D.~W. and {Lang}, D. and {Goodman}, J.},
-        title = {emcee: The MCMC Hammer},
-      journal = {PASP},
-         year = 2013,
-       volume = 125,
-        pages = {306-312},
-       eprint = {1202.3665},
-          doi = {10.1086/670067}
+    @article{LLENAR
     }
