@@ -7,7 +7,7 @@ This code ......
 **Other people who contributed to this code**:
 - Alejandro Aviles
 - Sebastien Fromenteau
-- Mariana Vargas Magaña
+- Mariana Vargas-Magaña
 
 
 ### Requirements:
