@@ -1,6 +1,6 @@
 # Fast One Loop Power Spectrum in the presence of massive neutrinos (FOLPSν)
 
-**Authors**: Hernán E. Noriega
+**Author**: Hernán E. Noriega
 
 Emails:henoriega@estudiantes.fisica.unam.mx
 
