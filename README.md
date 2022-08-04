@@ -4,8 +4,6 @@ This code ......
 #
 **Author**: [Hernán E. Noriega](mailto:henoriega@estudiantes.fisica.unam.mx)
 
-Email: henoriega@estudiantes.fisica.unam.mx
-
 **Other people who contributed to this code**:
 - Alejandro Aviles
 - Sebastien Fromenteau
