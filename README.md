@@ -31,7 +31,10 @@ git clone https://github.com/henoriega/FOLPS-nu.git
 
 or download it from https://github.com/henoriega/FOLPS-nu.
 
-Once everything is ready, please check the [Jupyter Notebook](https://github.com/henoriega/FOLPS-nu) 
+Once everything is ready, please check the [Jupyter Notebook](https://github.com/henoriega/FOLPS-nu) with some examples. 
+
+
+
 CAMBIAR EL LINK DE ARRIBA POR LA DIRECCION DEL JUPYTER
 
 
