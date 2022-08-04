@@ -2,7 +2,7 @@
 This code ......
 
 #
-**Author**: Hernán E. Noriega
+**Author**: [Hernán E. Noriega](mailto:henoriega@estudiantes.fisica.unam.mx)
 
 Email: henoriega@estudiantes.fisica.unam.mx
 
