@@ -17,15 +17,18 @@ FOLPSν computes the redshift space power spectrum multipoles in a fraction of s
 ## Run
 
 **Dependences**
+The code employs the standard libraries:
 - NumPy 
 - SciPy
 We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to rescale the FFT computation by a factor 1/N.
 
-[jupyter notebook](https://LINK_DEL_GITHUB)
-FOLPSν (still in development) is a code for efficiently evaluating the redshift-space power spectrum in the presence of massive neutrinos.
-The code is based on the FFTLog formalism (https://arxiv.org/abs/1603.04826, https://arxiv.org/abs/1603.04405) and computes the one-loop power spectrum from [Eulerian Perturbation Theory](https://arxiv.org/abs/astro-ph/0112551), incorporating into the model some standard ingredients such as non-linear bias, Infrared resummations, and Effective Field Theory counterterms.
+Git clone
 
-**Remark:** FFTLog matrices and vectors do not depend on the cosmological parameters, so they only need to be computed once!
+```
+git clone https://github.com/alejangroaviles/gsm.git
+```
+
+or download it from http://www.github.com/alejandroaviles/gsm
 
 
 
