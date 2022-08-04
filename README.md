@@ -1,5 +1,5 @@
 # FOLPSν
-Fast One Loop Power Spectrum in the presence of massive neutrinos (FOLPSν)
+Fast One Loop Power Spectrum in the presence of massive neutrinos (FOLPSν) computes the redshift space power spectrum multipoles in a fraction of second.
 
 [![arXiv](https://img.shields.io/badge/arXiv-PONER_NUMERO-red)](https://ARXIV_PONER_LINK)
 
