@@ -1,5 +1,5 @@
 # FOLPSν
-FOLPSν computes the redshift space power spectrum multipoles in a fraction of second. The code combine analytical modeling and numerical methods based on the FFTLog formalism to speed up the loop calculations.
+FOLPSν is Python code that computes the galaxy redshift space power spectrum for cosmologies containing massive neutrinos in a fraction of second. The code combines analytical modeling and numerical methods based on the FFTLog formalism to speed up the calculations of loop integrals.
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-PONER_NUMERO-red)](https://ARXIV_PONER_LINK)
