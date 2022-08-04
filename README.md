@@ -22,7 +22,7 @@ The code employs the standard libraries:
 - NumPy 
 - SciPy
 
-We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to rescale the FFT computation by a factor 1/N.
+We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to rescale by a factor 1/N the [FFT computation](https://github.com/henoriega/FOLPS-nu/blob/main/Mmodules.py#L412). 
 
 To run the code, first use git clone:
 
