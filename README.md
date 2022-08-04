@@ -32,7 +32,7 @@ git clone https://github.com/henoriega/FOLPS-nu.git
 
 or download it from https://github.com/henoriega/FOLPS-nu.
 
-Once everything is ready, please check the [Jupyter Notebook](https://github.com/henoriega/FOLPS-nu/blob/main/Example.ipynb) with some useful examples. 
+Once everything is ready, please check the [Jupyter Notebook](https://github.com/henoriega/FOLPS-nu/blob/main/notebooks/Example.ipynb) with some useful examples. 
 
 
 
