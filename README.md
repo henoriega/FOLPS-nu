@@ -13,8 +13,6 @@ Email: henoriega@estudiantes.fisica.unam.mx
 
 
 ### Requirements:
-**Requirements:** 
-
 - numpy (update your numpy to versions ≥ 1.20.0)
 - scipy
 
