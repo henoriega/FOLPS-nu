@@ -28,7 +28,7 @@ Git clone
 git clone https://github.com/henoriega/FOLPS-nu.git
 ```
 
-or download it from [http://www.github.com/alejandroaviles/gsm](https://github.com/henoriega/FOLPS-nu)
+or download it from https://github.com/henoriega/FOLPS-nu
 
 
 
