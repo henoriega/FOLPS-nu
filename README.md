@@ -36,9 +36,6 @@ Once everything is ready, please check the [Jupyter Notebook](https://github.com
 
 
 
-CAMBIAR EL LINK DE ARRIBA POR LA DIRECCION DEL JUPYTER
-
-
 Attribution
 -----------
 
