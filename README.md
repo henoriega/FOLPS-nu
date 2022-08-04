@@ -28,7 +28,7 @@ The code is based on the FFTLog formalism (https://arxiv.org/abs/1603.04826, htt
 Attribution
 -----------
 
-Please cite <https://ARXIV_PONER>`_ if you find this code useful in your research. 
+Please cite <https://ARXIV_PONER> if you find this code useful in your research. 
 The BibTeX entry for the paper is::
 
     @article{LLENAR
