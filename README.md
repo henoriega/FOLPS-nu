@@ -19,6 +19,7 @@ FOLPSν computes the redshift space power spectrum multipoles in a fraction of s
 **dependences**
 - numpy 
 - scipy
+We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to rescale the FFT computation by a factor 1/N.
 
 [jupyter notebook](https://LINK_DEL_GITHUB)
 FOLPSν (still in development) is a code for efficiently evaluating the redshift-space power spectrum in the presence of massive neutrinos.
