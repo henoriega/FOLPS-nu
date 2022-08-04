@@ -29,7 +29,6 @@ Attribution
 -----------
 
 Please cite <https://ARXIV_PONER> if you find this code useful in your research. 
-The BibTeX entry for the paper is::
 
     @article{LLENAR
     }
