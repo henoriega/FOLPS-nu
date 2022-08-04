@@ -11,8 +11,7 @@ Email: henoriega@estudiantes.fisica.unam.mx
 - Sebastien Fromenteau
 - Mariana Vargas Magaña
 
-#
-This code ......
+
 ### Requirements:
 **Requirements:** 
 
