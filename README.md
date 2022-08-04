@@ -9,8 +9,9 @@ Email: henoriega@estudiantes.fisica.unam.mx
 - Sebastien Fromenteau
 - Mariana Vargas Magaña
 
-
-
+#
+This code ......
+### Run
 **Requirements:** 
 
 - numpy (update your numpy to versions ≥ 1.20.0)
