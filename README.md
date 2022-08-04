@@ -1,7 +1,6 @@
 # FOLPSν
 FOLPSν computes the redshift space power spectrum multipoles in a fraction of second. The code combine analytical modeling and numerical methods based on the FFTLog formalism to speed up the loop calculations.
 
-utilizes numerical method and analytical modeling
 
 [![arXiv](https://img.shields.io/badge/arXiv-PONER_NUMERO-red)](https://ARXIV_PONER_LINK)
 
