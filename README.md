@@ -11,7 +11,7 @@ Email: henoriega@estudiantes.fisica.unam.mx
 
 #
 This code ......
-### Run
+### Requirements:
 **Requirements:** 
 
 - numpy (update your numpy to versions ≥ 1.20.0)
