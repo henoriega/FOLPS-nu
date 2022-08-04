@@ -10,7 +10,7 @@ This code ......
 - Mariana Vargas-Magaña
 
 
-### Requirements:
+### Run:
 - numpy (update your numpy to versions ≥ 1.20.0)
 - scipy
 
