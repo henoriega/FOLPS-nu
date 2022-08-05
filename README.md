@@ -2,7 +2,7 @@
 FOLPSν is Python code that computes the galaxy redshift space power spectrum for cosmologies containing massive neutrinos in a fraction of second. The code combines analytical modeling and numerical methods based on the FFTLog formalism to speed up the calculations of loop integrals.
 
 
-[![arXiv](https://img.shields.io/badge/arXiv-PONER_NUMERO-red)](https://ARXIV_PONER_LINK)
+[![arXiv](https://img.shields.io/badge/arXiv-2208.02791-red)](https://arxiv.org/abs/2208.02791)
 
 
 ## Authors: 
@@ -39,7 +39,14 @@ Once everything is ready, please check the [Jupyter Notebook](https://github.com
 Attribution
 -----------
 
-Please cite <https://ARXIV_PONER> if you find this code useful in your research. 
+Please cite <https://arxiv.org/pdf/2208.02791.pdf> if you find this code useful in your research. 
 
-    @article{LLENAR
-    }
+    @article{Noriega:2022nhf,
+    author = "Noriega, Hern\'an E. and Aviles, Alejandro and Fromenteau, Sebastien and Vargas-Maga\~na, Mariana",
+    title = "{Fast computation of non-linear power spectrum in cosmologies with massive neutrinos}",
+    eprint = "2208.02791",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    month = "8",
+    year = "2022"
+}
