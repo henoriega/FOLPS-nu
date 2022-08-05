@@ -39,7 +39,7 @@ Once everything is ready, please check the [Jupyter Notebook](https://github.com
 Attribution
 -----------
 
-Please cite <https://arxiv.org/pdf/2208.02791.pdf> if you find this code useful in your research. 
+Please cite <https://arxiv.org/abs/2208.02791> if you find this code useful in your research. 
 
     @article{Noriega:2022nhf,
     author = "Noriega, Hern\'an E. and Aviles, Alejandro and Fromenteau, Sebastien and Vargas-Maga\~na, Mariana",
