@@ -965,7 +965,6 @@ def TableOut_NW_interp(k):
 
 
 
-
 def PEFTs(kev, mu, NuisanParams, Table):
     '''EFT galaxy power spectrum, Eq. ~ 3.40 at arXiv: 2208.02791.
     
