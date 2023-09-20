@@ -640,7 +640,7 @@ def cmM(k_min, k_max, N, b_nu, inputpkT):
 
 
 
-def NonLinear(inputpkl, CosmoParams, EdSkernels = False):
+def NonLinear(inputpkl, CosmoParams, kminout=0.001, kmaxout=0.5, nk = 120, EdSkernels = False):
     '''1-loop corrections to the linear power spectrum.
     
     Args:
@@ -670,15 +670,10 @@ def NonLinear(inputpkl, CosmoParams, EdSkernels = False):
     
     ################################ KTOUT ###########################################    
     
-    kminout = 0.001; kmaxout = 0.5;
+    #kminout = 0.001; kmaxout = 0.5;
     
-    kTout = []
-    for ii in range(len(inputpkT[0])):
-        kv = inputpkT[0][ii]
-        if (kv >= kminout and kv < kmaxout):
-            x = kv
-            kTout.append(x)
-    kTout = np.array(kTout)
+    kTout = np.logspace(np.log10(kminout), np.log10(kmaxout), num=nk)
+
     
     ##################################################################################
     
@@ -766,7 +761,13 @@ def NonLinear(inputpkl, CosmoParams, EdSkernels = False):
         (M13_dd, M13_dt_fk, M13_tt_fk, Mafk_11, Mafp_11, Mafkfp_12, Mafpfp_12, 
          Mafkfkfp_33, Mafkfpfp_33, Msigma23) = M13vectors
         
-        Fkoverf0 = interp(kTout, inputfkT[0], inputfkT[1])
+        
+        #condition for EdS-kernels or fk-kernels (default: fk-kernels)
+        if EdSkernels == False:
+            Fkoverf0 = interp(kTout, inputfkT[0], inputfkT[1])
+        else:
+            Fkoverf0 = np.full(len(kTout), 1.0)
+            
         
         #matter coefficients 
         cmT = cmM(k_min, k_max, N, b_nu, inputpkT)
@@ -828,8 +829,19 @@ def NonLinear(inputpkl, CosmoParams, EdSkernels = False):
     inputfkT = fOverf0EH(z_pk, inputpkT[0], OmM0, h, fnu)
     f0 = inputfkT[2]
     
+    
+    
+    #condition for EdS-kernels or fk-kernels (default: fk-kernels)
+    if EdSkernels == False:
+        Fkoverf0 = interp(kTout, inputfkT[0], inputfkT[1])
+    else:
+        Fkoverf0 = np.full(len(kTout), 1.0)
+        
+        
+    
     #Non-wiggle linear power spectrum
     inputpkT_NW = pknwJ(inputpkT[0], inputpkT[1], h)
+    
     
     #condition for EdS-kernels or fk-kernels (default: fk-kernels)
     if EdSkernels == False:
@@ -846,8 +858,9 @@ def NonLinear(inputpkl, CosmoParams, EdSkernels = False):
         
         inputpkTf_NW = (inputpkT_NW[0], inputpkT_NW[1])
         inputpkTff_NW = (inputpkT_NW[0], inputpkT_NW[1])
+          
         
-    
+        
     #P22type contributions 
     P22 = P22type(kTout, inputpkT, inputpkTf, inputpkTff, M22matrices, k_min, k_max, N, b_nu)
     P22_NW = P22type(kTout, inputpkT_NW, inputpkTf_NW, inputpkTff_NW, M22matrices, k_min, k_max, N, b_nu)
@@ -859,7 +872,8 @@ def NonLinear(inputpkl, CosmoParams, EdSkernels = False):
     #Computations for Table
     pk_l = np.interp(kTout, inputpkT[0], inputpkT[1])
     pk_l_NW = np.interp(kTout,inputpkT_NW[0], inputpkT_NW[1])
-    Fkoverf0 = interp(kTout, inputfkT[0], inputfkT[1])
+        
+    
     sigma2w = 1/(6 * np.pi**2) * scipy.integrate.simps(inputpkTff[1], inputpkTff[0])
     sigma2w_NW = 1/(6 * np.pi**2) * scipy.integrate.simps(inputpkTff_NW[1], inputpkTff_NW[0])
 
@@ -962,6 +976,7 @@ def TableOut_NW_interp(k):
         Tableout_NW[ii][:] = interp(k, kTout, TableOut_NW[1+ii])
         Tableout_NW[25][:] = sigma2w_NW
     return Tableout_NW
+
 
 
 
@@ -1293,3 +1308,393 @@ def RSDmultipoles(kev, NuisanParams, Omfid = -1, AP = False):
     return (kev, Pkl0, Pkl2, Pkl4)
 
 
+
+
+def RSDmultipoles_marginalized_const(kev, NuisanParams, Omfid = -1, AP = False, Hexa = False):
+    '''Redshift space power spectrum multipoles 'const': Pℓ,const 
+      (α->0, marginalizing over the EFT and stochastic parameters).
+    
+    Args:
+        If 'AP=True' (default: 'False') the code perform the AP test.
+        If 'AP=True'. Include the fiducial Omfid after ‘NuisanParams’.
+        If 'Hexa = True' (default: 'False') the code includes the hexadecapole.
+        
+        kev: wave-number coordinates of evaluation.
+        NuisamParams: set of nuisance parameters [b1, b2, bs2, b3nl, alpha0, alpha2, alpha4, ctilde, alphashot0, 
+                                                  alphashot2, PshotP] in that order.
+                   b1, b2, bs2, b3nl: biasing parameters.
+                   alpha0, alpha2, alpha4: EFT parameters.
+                   ctilde: parameter for NL0 ∝ Kaiser power spectrum.
+                   alphashot0, alphashot2, PshotP: stochastic noise parameters.
+    Returns:
+       Redshift space power spectrum multipoles (monopole, quadrupole and hexadecapole) at 'kev'.
+    '''
+    
+    #NuisanParams
+    (b1, b2, bs2, b3nl, alpha0, alpha2, alpha4, 
+                ctilde, alphashot0, alphashot2, PshotP) = NuisanParams
+    
+    if AP == True and Omfid == -1:
+        sys.exit("Introduce the fiducial value of the dimensionless matter density parameter as ‘Omfid = value’.")
+     
+    if AP == True and Omfid > 0:
+                
+        #Om computed for any cosmology
+        OmM = CosmoParam(h, omega_b, omega_cdm, omega_ncdm)[1]
+        
+        #qperp, qpar: AP parameters.
+        qperp = DA(OmM, z_pk)/DA(Omfid, z_pk) 
+        qpar = Hubble(Omfid, z_pk)/Hubble(OmM, z_pk) 
+        
+        
+    def PIRs_const(kev, mu, Table, Table_NW):
+        
+        #NuisanParams_const: α->0 (set to zero EFT and stochastic parameters)
+        alpha0, alpha2, alpha4, alphashot0, alphashot2 = np.zeros(5)
+        
+        NuisanParams_const = (b1, b2, bs2, b3nl, alpha0, alpha2, alpha4, 
+                              ctilde, alphashot0, alphashot2, PshotP)
+        
+        
+        if AP == True:
+            
+            k_true = k_AP(kev, mu, qperp, qpar)
+            mu_true = mu_AP(mu, qperp, qpar)
+            
+            Table_true = Table_interp(k_true, kev, Table)
+            Table_NW_true = Table_interp(k_true, kev, Table_NW)
+            
+            Sigma2T = Sigma2Total(k_true, mu_true, Table_NW_true)
+            
+            Fkoverf0 = Table_true[1]; fk = Fkoverf0*f0
+            pkl = Table_true[0]; pkl_NW = Table_NW_true[0];
+            
+            
+            return ((b1 + fk * mu_true**2)**2 * (pkl_NW + np.exp(-k_true**2 * Sigma2T)*(pkl-pkl_NW)*(1 + k_true**2 * Sigma2T) )
+                + np.exp(-k_true**2 * Sigma2T)*PEFTs(k_true, mu_true, NuisanParams_const, Table_true) 
+                + (1 - np.exp(-k_true**2 * Sigma2T))*PEFTs(k_true, mu_true, NuisanParams_const, Table_NW_true))
+        
+        
+        else:
+            
+            k = kev; Fkoverf0 = Table[1]; fk = Fkoverf0*f0
+            pkl = Table[0]; pkl_NW = Table_NW[0];
+            Sigma2T = Sigma2Total(kev, mu, Table_NW)
+            
+            return ((b1 + fk * mu**2)**2 * (pkl_NW + np.exp(-k**2 * Sigma2T)*(pkl-pkl_NW)*(1 + k**2 * Sigma2T) )
+                + np.exp(-k**2 * Sigma2T)*PEFTs(k, mu, NuisanParams_const, Table) 
+                + (1 - np.exp(-k**2 * Sigma2T))*PEFTs(k, mu, NuisanParams_const, Table_NW))
+        
+        
+    Nx = 6                                         #Points
+    xGL, wGL = scipy.special.roots_legendre(Nx)    #x=cosθ and weights
+    
+    def ModelPkl0_const(Table, Table_NW):
+        if AP == True:
+            monop = 1/(qperp**2 * qpar) * sum(0.5*wGL[ii]*PIRs_const(kev, xGL[ii], Table, Table_NW) for ii in range(Nx))
+            return monop
+        else:
+            monop = sum(0.5*wGL[ii]*PIRs_const(kev, xGL[ii], Table, Table_NW) for ii in range(Nx))
+            return monop
+        
+        
+    def ModelPkl2_const(Table, Table_NW):    
+        if AP == True:
+            quadrup = 1/(qperp**2 * qpar) * sum(5/2*wGL[ii]*PIRs_const(kev, xGL[ii], Table, Table_NW)*eval_legendre(2, xGL[ii]) for ii in range(Nx))
+            return quadrup
+        else:
+            quadrup = sum(5/2*wGL[ii]*PIRs_const(kev, xGL[ii], Table, Table_NW)*eval_legendre(2, xGL[ii]) for ii in range(Nx))
+            return quadrup
+        
+        
+    def ModelPkl4_const(Table, Table_NW):
+        if AP == True:
+            hexadecap = 1/(qperp**2 * qpar) * sum(9/2*wGL[ii]*PIRs_const(kev, xGL[ii], Table, Table_NW)*eval_legendre(4, xGL[ii]) for ii in range(Nx))
+            return hexadecap
+        else:
+            hexadecap = sum(9/2*wGL[ii]*PIRs_const(kev, xGL[ii], Table, Table_NW)*eval_legendre(4, xGL[ii]) for ii in range(Nx))
+            return hexadecap
+        
+        
+    if Hexa == False:
+        Pkl0_const = ModelPkl0_const(TableOut_interp(kev), TableOut_NW_interp(kev));
+        Pkl2_const = ModelPkl2_const(TableOut_interp(kev), TableOut_NW_interp(kev));
+        return (Pkl0_const, Pkl2_const)
+    
+    else:
+        Pkl0_const = ModelPkl0_const(TableOut_interp(kev), TableOut_NW_interp(kev));
+        Pkl2_const = ModelPkl2_const(TableOut_interp(kev), TableOut_NW_interp(kev));
+        Pkl4_const = ModelPkl4_const(TableOut_interp(kev), TableOut_NW_interp(kev));
+        return (Pkl0_const, Pkl2_const, Pkl4_const)        
+    
+    
+    
+
+def PEFTs_derivatives(k, mu, pkl, PshotP):
+    '''Derivatives of PEFTs with respect to the EFT and stochastic parameters.
+    
+    Args:
+        k: wave-number coordinates of evaluation.
+        mu: cosine angle between the wave-vector ‘\vec{k}’ and the line-of-sight direction ‘\hat{n}’.
+        pkl: linear power spectrum.
+        PshotP: stochastic nuisance parameter.
+    Returns:
+        ∂P_EFTs/∂α_i with: α_i = {alpha0, alpha2, alpha4, alphashot0, alphashot2}
+    '''
+    
+    k2 = k**2
+    k2mu2 = k2 * mu**2
+    k2mu4 = k2mu2 * mu**2
+
+    PEFTs_alpha0 = k2 * pkl
+    PEFTs_alpha2 = k2mu2 * pkl 
+    PEFTs_alpha4 = k2mu4 * pkl 
+    PEFTs_alphashot0 = PshotP
+    PEFTs_alphashot2 = k2mu2 * PshotP
+    
+    return (PEFTs_alpha0, PEFTs_alpha2, PEFTs_alpha4, PEFTs_alphashot0, PEFTs_alphashot2)  
+
+
+
+
+def RSDmultipoles_marginalized_derivatives(kev, NuisanParams, Omfid = -1, AP = False, Hexa = False):
+    '''Redshift space power spectrum multipoles 'derivatives': Pℓ,i=∂Pℓ/∂α_i 
+      (derivatives with respect to the EFT and stochastic parameters).
+    
+    Args:
+        If 'AP=True' (default: 'False') the code perform the AP test.
+        If 'AP=True'. Include the fiducial Omfid after ‘NuisanParams’.
+        If 'Hexa = True' (default: 'False') the code includes the hexadecapole.
+        
+        kev: wave-number coordinates of evaluation.
+        NuisamParams: set of nuisance parameters [b1, b2, bs2, b3nl, alpha0, alpha2, alpha4, ctilde, alphashot0, 
+                                                  alphashot2, PshotP] in that order.
+                   b1, b2, bs2, b3nl: biasing parameters.
+                   alpha0, alpha2, alpha4: EFT parameters.
+                   ctilde: parameter for NL0 ∝ Kaiser power spectrum.
+                   alphashot0, alphashot2, PshotP: stochastic noise parameters.
+    Returns:
+       Redshift space power spectrum multipoles (monopole, quadrupole and hexadecapole) at 'kev'.
+    '''
+            
+    #NuisanParams
+    (b1, b2, bs2, b3nl, alpha0, alpha2, alpha4, 
+                ctilde, alphashot0, alphashot2, PshotP) = NuisanParams
+    
+    if AP == True and Omfid == -1:
+        sys.exit("Introduce the fiducial value of the dimensionless matter density parameter as ‘Omfid = value’.")
+     
+    if AP == True and Omfid > 0:
+                
+        #Om computed for any cosmology
+        OmM = CosmoParam(h, omega_b, omega_cdm, omega_ncdm)[1]
+        
+        #qperp, qpar: AP parameters.
+        qperp = DA(OmM, z_pk)/DA(Omfid, z_pk) 
+        qpar = Hubble(Omfid, z_pk)/Hubble(OmM, z_pk) 
+        
+    
+    def PIRs_derivatives(kev, mu, Table, Table_NW):
+        
+        if AP == True:
+            
+            k_true = k_AP(kev, mu, qperp, qpar)
+            mu_true = mu_AP(mu, qperp, qpar)
+            
+            Table_true = Table_interp(k_true, kev, Table)
+            Table_NW_true = Table_interp(k_true, kev, Table_NW)
+            
+            Sigma2T = Sigma2Total(k_true, mu_true, Table_NW_true)
+            
+            Fkoverf0 = Table_true[1]; fk = Fkoverf0*f0
+            pkl = Table_true[0]; pkl_NW = Table_NW_true[0];
+            
+            #computing PEFTs_derivatives: wiggle and non-wiggle terms
+            PEFTs_alpha0, PEFTs_alpha2, PEFTs_alpha4, PEFTs_alphashot0, PEFTs_alphashot2 = PEFTs_derivatives(k_true, mu_true, pkl, PshotP)
+            PEFTs_alpha0_NW, PEFTs_alpha2_NW, PEFTs_alpha4_NW, PEFTs_alphashot0_NW, PEFTs_alphashot2_NW = PEFTs_derivatives(k_true, mu_true, pkl_NW, PshotP)
+            
+            exp_term = np.exp(-k_true**2 * Sigma2T)
+            exp_term_inv = 1 - exp_term
+            
+            #computing PIRs_derivatives for EFT and stochastic parameters
+            PIRs_alpha0 = exp_term * PEFTs_alpha0 + exp_term_inv * PEFTs_alpha0_NW
+            PIRs_alpha2 = exp_term * PEFTs_alpha2 + exp_term_inv * PEFTs_alpha2_NW
+            PIRs_alpha4 = exp_term * PEFTs_alpha4 + exp_term_inv * PEFTs_alpha4_NW
+            PIRs_alphashot0 = exp_term * PEFTs_alphashot0 + exp_term_inv * PEFTs_alphashot0_NW
+            PIRs_alphashot2 = exp_term * PEFTs_alphashot2 + exp_term_inv * PEFTs_alphashot2_NW
+            
+            return (PIRs_alpha0, PIRs_alpha2, PIRs_alpha4, PIRs_alphashot0, PIRs_alphashot2)
+        
+        
+        else:
+            k = kev; Fkoverf0 = Table[1]; fk = Fkoverf0*f0
+            pkl = Table[0]; pkl_NW = Table_NW[0];
+            
+            Sigma2T = Sigma2Total(kev, mu, Table_NW)
+            
+            #computing PEFTs_derivatives: wiggle and non-wiggle terms
+            PEFTs_alpha0, PEFTs_alpha2, PEFTs_alpha4, PEFTs_alphashot0, PEFTs_alphashot2 = PEFTs_derivatives(k, mu, pkl, PshotP)
+            PEFTs_alpha0_NW, PEFTs_alpha2_NW, PEFTs_alpha4_NW, PEFTs_alphashot0_NW, PEFTs_alphashot2_NW = PEFTs_derivatives(k, mu, pkl_NW, PshotP)
+            
+            exp_term = np.exp(-k**2 * Sigma2T)
+            exp_term_inv = 1 - exp_term
+            
+            #computing PIRs_derivatives for EFT and stochastic parameters
+            PIRs_alpha0 = exp_term * PEFTs_alpha0 + exp_term_inv * PEFTs_alpha0_NW
+            PIRs_alpha2 = exp_term * PEFTs_alpha2 + exp_term_inv * PEFTs_alpha2_NW
+            PIRs_alpha4 = exp_term * PEFTs_alpha4 + exp_term_inv * PEFTs_alpha4_NW
+            PIRs_alphashot0 = exp_term * PEFTs_alphashot0 + exp_term_inv * PEFTs_alphashot0_NW
+            PIRs_alphashot2 = exp_term * PEFTs_alphashot2 + exp_term_inv * PEFTs_alphashot2_NW
+            
+            return (PIRs_alpha0, PIRs_alpha2, PIRs_alpha4, PIRs_alphashot0, PIRs_alphashot2)
+        
+        
+    Nx = 6    
+    xGL, wGL = scipy.special.roots_legendre(Nx)    #x=cosθ and weights
+    
+    def ModelPkl0_derivatives(Table, Table_NW):
+        if AP == True:
+            monop = 1/(qperp**2 * qpar) * sum(0.5*wGL[ii]*np.array(PIRs_derivatives(kev, xGL[ii], Table, Table_NW)) for ii in range(Nx))
+            return monop
+        
+        else:
+            monop = sum(0.5*wGL[ii]*np.array(PIRs_derivatives(kev, xGL[ii], Table, Table_NW)) for ii in range(Nx))
+            return monop
+        
+    
+    def ModelPkl2_derivatives(Table, Table_NW):
+        if AP == True:
+            quadrup = 1/(qperp**2 * qpar) * sum(5/2*wGL[ii]*np.array(PIRs_derivatives(kev, xGL[ii], Table, Table_NW))*eval_legendre(2, xGL[ii]) for ii in range(Nx))
+            return quadrup 
+        
+        else:
+            quadrup = sum(5/2*wGL[ii]*np.array(PIRs_derivatives(kev, xGL[ii], Table, Table_NW))*eval_legendre(2, xGL[ii]) for ii in range(Nx))
+            return quadrup
+    
+    
+    def ModelPkl4_derivatives(Table, Table_NW):
+        if AP == True:
+            hexadecap = 1/(qperp**2 * qpar) * sum(9/2*wGL[ii]*np.array(PIRs_derivatives(kev, xGL[ii], Table, Table_NW))*eval_legendre(4, xGL[ii]) for ii in range(Nx))
+            return hexadecap
+        
+        else:
+            hexadecap = sum(9/2*wGL[ii]*np.array(PIRs_derivatives(kev, xGL[ii], Table, Table_NW))*eval_legendre(4, xGL[ii]) for ii in range(Nx))
+            return hexadecap  
+    
+    if Hexa == False:   
+        Pkl0_derivatives = ModelPkl0_derivatives(TableOut_interp(kev), TableOut_NW_interp(kev));
+        Pkl2_derivatives = ModelPkl2_derivatives(TableOut_interp(kev), TableOut_NW_interp(kev));
+        return (Pkl0_derivatives, Pkl2_derivatives)
+    
+    else:
+        Pkl0_derivatives = ModelPkl0_derivatives(TableOut_interp(kev), TableOut_NW_interp(kev));
+        Pkl2_derivatives = ModelPkl2_derivatives(TableOut_interp(kev), TableOut_NW_interp(kev));
+        Pkl4_derivatives = ModelPkl4_derivatives(TableOut_interp(kev), TableOut_NW_interp(kev));
+        return (Pkl0_derivatives, Pkl2_derivatives, Pkl4_derivatives)
+    
+    
+    
+    
+#Marginalization matrices
+
+def startProduct(A, B, invCov):
+    '''Computes: A @ InvCov @ B^{T}, where 'T' means transpose.
+    
+    Args:
+         A: first vector, array of the form 1 x n
+         B: second vector, array of the form 1 x n
+         invCov: inverse of covariance matrix, array of the form n x n
+    
+    Returns:
+         The result of: A @ InvCov @ B^{T}
+    '''
+    
+    return A @ invCov @ B.T 
+
+
+
+
+def compute_L0(Pl_const, Pl_data, invCov):
+    '''Computes the term L0 of the marginalized Likelihood.
+    
+    Args:
+         Pl_const: model multipoles for the constant part (Pℓ,const = Pℓ(α->0)), array of the form 1 x n
+         Pl_data: data multipoles, array of the form 1 x n 
+         invCov: inverse of covariance matrix, array of the form n x n
+         
+    Return:
+         Loglikelihood for the constant part of the model multipoles 
+    '''
+    
+    D_const = Pl_const - Pl_data
+    
+    L0 = -0.5 * startProduct(D_const, D_const, invCov)             #eq. 2.4 notes on marginalization
+    
+    return L0
+
+
+
+
+def compute_L1i(Pl_i, Pl_const, Pl_data, invCov):
+    '''Computes the term L1i of the marginalized Likelihood.
+    
+    Args:
+         Pl_i: array with the derivatives of the power spectrum multipoles with respect to 
+               the EFT and stochastic parameters, i.e., Pℓ,i=∂Pℓ/∂α_i , i = 1,..., ndim
+               array of the form ndim x n
+         Pl_const: model multipoles for the constant part (Pℓ,const = Pℓ(α->0)), array of the form 1 x n
+         Pl_data: data multipoles, array of the form 1 x n
+         invCov: inverse of covariance matrix, array of the form n x n
+    Return:
+         array for L1i
+    '''
+    
+    D_const = Pl_const - Pl_data  
+    
+    #ndim = len(Pl_i)
+    
+    #computing L1i
+    #L1i = np.zeros(ndim)
+    
+    #for ii in range(ndim):
+    #    term1 = startProduct(Pl_i[ii], D_const, invCov)
+    #    term2 = startProduct(D_const, Pl_i[ii], invCov)
+    #    L1i[ii] = -0.5 * (term1 + term2)
+    
+    L1i = - startProduct(Pl_i, D_const, invCov)
+    
+    return L1i
+
+
+
+
+def compute_L2ij(Pl_i, invCov, sigma_prior = np.inf):
+    '''Computes the term L2ij of the marginalized Likelihood.
+    
+    Args:
+         Pl_i: array with the derivatives of the power spectrum multipoles with respect to 
+               the EFT and stochastic parameters, i.e., Pℓ,i=∂Pℓ/∂α_i , i = 1,..., ndim
+               array of the form ndim x n
+         invCov: inverse of covariance matrix, array of the form n x n
+    Return:
+         array for L2ij
+    '''
+    
+    #ndim = len(Pl_i)
+    
+    #Computing L2ij
+    #L2ij = np.zeros((ndim, ndim))
+    
+    #for ii in range (ndim):
+        #for jj in range (ndim):
+            #L2ij[ii, jj] = startProduct(Pl_i[ii], Pl_i[jj], invCov)
+    
+    L2ij = startProduct(Pl_i, Pl_i, invCov)
+            
+    # Adding prior variances to L2ij
+    if isinstance(sigma_prior, (int, float)):
+        L2ij += 1 / (sigma_prior ** 2)
+    else:
+        L2ij += np.diag(1 / np.array(sigma_prior) ** 2)
+            
+    return L2ij 
