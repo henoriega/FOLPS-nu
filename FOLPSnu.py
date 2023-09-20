@@ -1252,7 +1252,7 @@ def RSDmultipoles(kev, NuisanParams, Omfid = -1, AP = False):
     
     if AP == True:
         
-        Nx = 6                                         #Points
+        Nx = 8                                         #Points
         xGL, wGL = scipy.special.roots_legendre(Nx)    #x=cosθ and weights
         
         def ModelPkl0(Table, Table_NW):
@@ -1275,7 +1275,7 @@ def RSDmultipoles(kev, NuisanParams, Omfid = -1, AP = False):
     
     else:
         
-        Nx = 6                                         #Points
+        Nx = 8                                         #Points
         xGL, wGL = scipy.special.roots_legendre(Nx)    #x=cosθ and weights
         
         def ModelPkl0(Table, Table_NW):
@@ -1386,7 +1386,7 @@ def RSDmultipoles_marginalized_const(kev, NuisanParams, Omfid = -1, AP = False, 
                 + (1 - np.exp(-k**2 * Sigma2T))*PEFTs(k, mu, NuisanParams_const, Table_NW))
         
         
-    Nx = 6                                         #Points
+    Nx = 8                                         #Points
     xGL, wGL = scipy.special.roots_legendre(Nx)    #x=cosθ and weights
     
     def ModelPkl0_const(Table, Table_NW):
@@ -1549,7 +1549,7 @@ def RSDmultipoles_marginalized_derivatives(kev, NuisanParams, Omfid = -1, AP = F
             return (PIRs_alpha0, PIRs_alpha2, PIRs_alpha4, PIRs_alphashot0, PIRs_alphashot2)
         
         
-    Nx = 6    
+    Nx = 8    
     xGL, wGL = scipy.special.roots_legendre(Nx)    #x=cosθ and weights
     
     def ModelPkl0_derivatives(Table, Table_NW):
