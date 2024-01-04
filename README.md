@@ -8,8 +8,8 @@ FOLPSν is a Python code that computes the galaxy redshift space power spectrum 
 ## Authors: 
 - [Hernán E. Noriega](mailto:henoriega@estudiantes.fisica.unam.mx)
 - [Alejandro Aviles](mailto:avilescervantes@gmail.com)
+*Special thanks to other people who have tested this code*: Sebastien Fromenteau, Mariana Vargas-Magaña, Arnaud de Mattia, Gerardo Morales Navarrete 
 
-*Other people who contributed testing this code*: Sebastien Fromenteau & Mariana Vargas-Magaña
 
 
 
