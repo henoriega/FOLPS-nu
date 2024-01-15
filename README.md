@@ -1,4 +1,4 @@
-![logo](logo.pdf)
+![logo](logo.svg)
 
 # FOLPSν (aka Flops)
 FOLPSν is a Python code that computes the galaxy redshift space power spectrum for cosmologies containing massive neutrinos. The code combines analytical modeling and numerical methods based on the FFTLog formalism. <!-- to speed up the calculations of loop integrals. -->
