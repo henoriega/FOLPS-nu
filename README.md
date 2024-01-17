@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/henoriega/FOLPS-nu/blob/main/folps.png" width="700" height="200">
+    <img src="https://github.com/henoriega/FOLPS-nu/blob/main/folps_logo.png" width="700" height="200">
 </p>
 
 # FOLPSν (aka Flops)
