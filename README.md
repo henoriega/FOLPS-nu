@@ -33,10 +33,13 @@ We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to 
 To run the code, first use git clone:
 
 ```
+git clone https://github.com/henoriega/FOLPS-nu.git
+```
+or install via pip by:
+
+```
 pip install git+https://github.com/henoriega/FOLPS-nu
 ```
-
-or download it from https://github.com/henoriega/FOLPS-nu.
 
 Once everything is ready, please check the [Jupyter Notebook](https://github.com/henoriega/FOLPS-nu/blob/main/notebooks/Example.ipynb) which contains some helpful examples. 
 
