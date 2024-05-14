@@ -33,7 +33,8 @@ We recommend to use NumPy versions ≥ 1.20.0. For older versions, one needs to 
 To run the code, first use git clone:
 
 ```
-git clone https://github.com/henoriega/FOLPS-nu.git
+#git clone https://github.com/henoriega/FOLPS-nu.git
+pip install git+https://github.com/henoriega/FOLPS-nu
 ```
 
 or download it from https://github.com/henoriega/FOLPS-nu.
