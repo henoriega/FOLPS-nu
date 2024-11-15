@@ -15,7 +15,7 @@ For version with JAX (x10 times faster!): [Folpsax](https://github.com/cosmodesi
 - [Alejandro Aviles](mailto:avilescervantes@gmail.com)
 
 
-*Special thanks to Arnaud de Mattia for helping with the [Jax](https://github.com/cosmodesi/folpsax) version of this code. 
+*Special thanks to Arnaud de Mattia for helping with the [Jax](https://github.com/cosmodesi/folpsax) version of this code.* 
 
 
 
