@@ -10,12 +10,12 @@ For version with JAX (x10 times faster!): [Folpsax](https://github.com/cosmodesi
 [![arXiv](https://img.shields.io/badge/arXiv-2208.02791-red)](https://arxiv.org/abs/2208.02791)
 
 
-## Authors: 
+## Developers (code and (e)BOSS and DESI pipelines): 
 - [Hernán E. Noriega](mailto:henoriega@estudiantes.fisica.unam.mx)
 - [Alejandro Aviles](mailto:avilescervantes@gmail.com)
 
 
-*Special thanks to other people who have tested this code*: Sebastien Fromenteau, Mariana Vargas-Magaña, Arnaud de Mattia, Gerardo Morales Navarrete 
+*Special thanks to Arnaud de Mattia for helping with the [Jax](https://github.com/cosmodesi/folpsax) version of this code. Thanks to other people who have ran this code*: Diego Gonzalez, Sofía Samario, Jorge Cervantes, Mario Rodriguez-Meza, Sebastien Fromenteau, Mariana Vargas-Magaña, Gerardo Morales Navarrete, ...
 
 
 
