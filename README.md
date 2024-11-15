@@ -15,7 +15,9 @@ For version with JAX (x10 times faster!): [Folpsax](https://github.com/cosmodesi
 - [Alejandro Aviles](mailto:avilescervantes@gmail.com)
 
 
-*Special thanks to Arnaud de Mattia for helping with the [Jax](https://github.com/cosmodesi/folpsax) version of this code. Thanks to other people who have ran this code*: Diego Gonzalez, Sofía Samario, Jorge Cervantes, Mario Rodriguez-Meza, Sebastien Fromenteau, Mariana Vargas-Magaña, Gerardo Morales Navarrete, ...
+*Special thanks to Arnaud de Mattia for helping with the [Jax](https://github.com/cosmodesi/folpsax) version of this code. 
+
+
 
 
 
@@ -59,3 +61,7 @@ Please cite <https://arxiv.org/abs/2208.02791> if you find this code useful in y
     month = "8",
     year = "2022"
     }
+
+
+<sup>Thanks to people who have ran this code*: Diego Gonzalez, Sofía Samario, Jorge Cervantes, Mario Rodriguez-Meza, Sebastien Fromenteau, Mariana Vargas-Magaña, Gerardo Morales Navarrete, ... </sub>
+
