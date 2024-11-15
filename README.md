@@ -20,6 +20,10 @@ For version with JAX (x10 times faster!): [Folpsax](https://github.com/cosmodesi
 
 
 
+<sup> We thank to people who have ran this code*: Diego Gonzalez, Sofía Samario, Jorge Cervantes, Mario Rodriguez-Meza, Sebastien Fromenteau, Mariana Vargas-Magaña, Gerardo Morales-Navarrete, ... </sub>
+
+
+
 
 
 ## Run
@@ -61,7 +65,3 @@ Please cite <https://arxiv.org/abs/2208.02791> if you find this code useful in y
     month = "8",
     year = "2022"
     }
-
-
-<sup>Thanks to people who have ran this code*: Diego Gonzalez, Sofía Samario, Jorge Cervantes, Mario Rodriguez-Meza, Sebastien Fromenteau, Mariana Vargas-Magaña, Gerardo Morales Navarrete, ... </sub>
-
