@@ -20,7 +20,6 @@ For version with JAX (x10 times faster!): [Folpsax](https://github.com/cosmodesi
 
 
 
-<sup> We thank to people who have ran this code*: Diego Gonzalez, Sofía Samario, Jorge Cervantes, Mario Rodriguez-Meza, Sebastien Fromenteau, Mariana Vargas-Magaña, Gerardo Morales-Navarrete, ... </sub>
 
 
 
